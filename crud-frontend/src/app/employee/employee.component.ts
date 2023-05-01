@@ -53,7 +53,6 @@ export class EmployeeComponent {
   
   setUpdate(data: any){
     console.log(data);
-    debugger
     this.name=data.name
     this.designation=data.designation
     this.cid=data.id
