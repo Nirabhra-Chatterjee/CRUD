@@ -1,0 +1,40 @@
+<div class="p-5">
+    <main class="form-signin w- m-auto col-6">
+        <form [formGroup]="employeeFormGroup" (ngSubmit)="save()">
+          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      
+          <div class="form-floating">
+            <input formControlName="name" type="text" class="form-control" id="floatingInput" placeholder="Enter Name">
+            <label for="floatingInput">name</label>
+          </div>
+          <div class="form-floating">
+            <input formControlName="designation" type="text" class="form-control" id="floatingPassword" placeholder="Enter Designation">
+            <label for="floatingPassword">designation</label>
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">submit</button>
+        </form>
+      </main>
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Designation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of EmployeeArray">
+            <td scope="row">{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.designation}}</td>
+        <td>
+            <button type="button" class="btn btn-success" (click)="setUpdate(item)">Edit</button>
+
+            <button type="button" class="btn btn-danger" (click)="setDelete(item)">Delete</button>
+
+          </td>
+        </tr>
+
+</table>
+</div>
