@@ -52,18 +52,18 @@ export class EmployeeComponent {
   }
   
   setUpdate(data: any){
-    this.cid=data.id;
-    this.name=data.name;
-    this.designation=data.designation;
+    console.log(data);
+    debugger
+    this.name=data.name
+    this.designation=data.designation
+    this.cid=data.id
   }
 
-  UpdateRecords(){
+  UpdateRecords(id:Number,name:string, designation:string){
     let bodyData = {
-      "id": this.cid,
-      "name":this.name,
-      "designation":this.designation
+      id,name,designation
     };
-    
+    console.log(bodyData);
     this.http.put("http://localhost:8084/Employee/edit", bodyData, {responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Employee registered Updated")
@@ -76,7 +76,11 @@ export class EmployeeComponent {
     console.log(this.employeeFormGroup)
     let name= this.employeeFormGroup.value.name
     let designation= this.employeeFormGroup.value.designation
+    let id=this.cid
+    if(this.cid==0)
     this.register(name,designation)
+    else
+    this.UpdateRecords(id,name,designation)
   }
   setDelete(data: any){
 
