@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http'
 import { Component,OnInit,Input } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-
+import {apiUrl} from '../constant';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -16,7 +16,7 @@ export class EmployeeComponent {
   employeeFormGroup!: FormGroup
   cid: Number=0;
   name: string = "";
-  designation: string = "";
+  data: Number = 0;
 
   constructor(private http: HttpClient) {
   }
@@ -24,59 +24,62 @@ export class EmployeeComponent {
     this.getAllEmployee();
     this.employeeFormGroup = new FormGroup({
       "name": new FormControl("",Validators.required),
-      "designation": new FormControl("",Validators.required)
+      "data": new FormControl("",Validators.required)
     })
   }
   getAllEmployee(){
-    this.http.get("http://localhost:8084/Employee/view")
+    this.http.get(`${apiUrl}/files/2`)
     .subscribe((resultData: any) =>{
       this.isResultLoaded=true;
       console.log(resultData);
       this.EmployeeArray = resultData;
     });
   }
-  register(name: string, designation:string) {
+  register(name: string, data:Number) {
 
     let bodyData = {
-      name,designation
+      name,data
     };
     
-    this.http.post("http://localhost:8084/Employee/add", bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
+    this.http.post("http://localhost:8084/upload", bodyData, { responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Employee Registered Successfully");
       this.getAllEmployee();
       
       this.name = '';
-      this.designation = '';
+      this.data = 0;
     });
   }
   
   setUpdate(data: any){
-    this.cid=data.id;
-    this.name=data.name;
-    this.designation=data.designation;
+    console.log(data);
+    this.name=data.name
+    this.data=data.data
+    this.cid=data.id
   }
 
-  UpdateRecords(){
+  UpdateRecords(id:Number,name:string, data:Number){
     let bodyData = {
-      "id": this.cid,
-      "name":this.name,
-      "designation":this.designation
+      id,name,data
     };
-    
+    console.log(bodyData);
     this.http.put("http://localhost:8084/Employee/edit", bodyData, {responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Employee registered Updated")
       this.getAllEmployee();
       this.name='';
-      this.designation='';
+      this.data=0;
     });
   }
   save(){
     console.log(this.employeeFormGroup)
     let name= this.employeeFormGroup.value.name
-    let designation= this.employeeFormGroup.value.designation
-    this.register(name,designation)
+    let data= this.employeeFormGroup.value.data
+    let id=this.cid
+    if(this.cid==0)
+    this.register(name,data)
+    else
+    this.UpdateRecords(id,name,data)
   }
   setDelete(data: any){
 
@@ -86,7 +89,7 @@ export class EmployeeComponent {
       this.getAllEmployee();
 
       this.name='';
-      this.designation='';
+      this.data=0;
 
     });
   }

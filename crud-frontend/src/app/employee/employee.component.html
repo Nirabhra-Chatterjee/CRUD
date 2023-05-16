@@ -9,7 +9,7 @@
           </div>
           <div class="form-floating">
             <input formControlName="designation" type="text" class="form-control" id="floatingPassword" placeholder="Enter Designation">
-            <label for="floatingPassword">designation</label>
+            <label for="floatingPassword">data</label>
           </div>
           <button class="w-100 btn btn-lg btn-primary" type="submit">submit</button>
         </form>
@@ -20,7 +20,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Designation</th>
+            <th scope="col">Data</th>
         </tr>
     </thead>
     <tbody>
@@ -28,12 +28,12 @@
             <td scope="row">{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.designation}}</td>
-        <td>
+        <!-- <td>
             <button type="button" class="btn btn-success" (click)="setUpdate(item)">Edit</button>
 
             <button type="button" class="btn btn-danger" (click)="setDelete(item)">Delete</button>
 
-          </td>
+          </td> -->
         </tr>
 
 </table>
