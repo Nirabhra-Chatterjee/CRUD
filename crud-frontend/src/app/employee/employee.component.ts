@@ -63,6 +63,7 @@ export class EmployeeComponent {
       id,name,data
     };
     console.log(bodyData);
+    console.log(bodyData);
     this.http.put("http://localhost:8084/Employee/edit", bodyData, {responseType: 'text' }).subscribe((resultData: any) => {
       console.log(resultData);
       alert("Employee registered Updated")
